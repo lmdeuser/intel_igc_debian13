@@ -21,3 +21,6 @@ The script installs the following packages via `apt`:
    ```bash
    git clone https://github.com/your-username/igc-debian-build.git
    cd igc-debian-build
+chmod +x build_igc_deb.sh
+
+./build_igc_deb.sh
