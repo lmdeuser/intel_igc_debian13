@@ -1,0 +1,12 @@
+# Build artifacts
+apps/
+*.deb
+*.ddeb
+*.log
+
+# Temporary files
+*.o
+*.a
+*.so
+build/
+install/
