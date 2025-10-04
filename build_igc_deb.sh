@@ -3,7 +3,7 @@
 # Адаптировано из https://github.com/intel/intel-graphics-compiler/blob/master/documentation/build_ubuntu.md
 # и https://github.com/intel/intel-graphics-compiler/blob/master/documentation/configuration_flags.md
 # Пакеты: intel-igc-core, intel-igc-opencl, intel-igc-dev.
-# Сборка LLVM 15 из исходников (llvmorg-15.0.7).
+# Сборка LLVM 15 из исходников (llvmorg-15.0.7) для IGC 2.18.5.
 # Выполняется от имени пользователя, кроме установки зависимостей.
 
 set -e
@@ -107,7 +107,7 @@ run_with_log "git clone https://github.com/intel/intel-graphics-compiler igc" "�
 
 cd igc
 run_with_log "git fetch --all --tags --prune" "Не удалось обновить теги репозитория igc"
-run_with_log "git checkout tags/v2.14.1 -b 2.14.1" "Не удалось переключиться на тег v2.14.1"
+run_with_log "git checkout tags/v2.18.5 -b 2.18.5" "Не удалось переключиться на тег v2.18.5"
 
 # Сборка LLVM 15.0.7 из исходников (без openmp)
 log "Сборка LLVM 15.0.7 из исходников..."
@@ -136,7 +136,7 @@ run_with_log "cmake .. \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCPACK_GENERATOR=DEB \
     -DCPACK_PACKAGE_NAME=intel-igc \
-    -DCPACK_PACKAGE_VERSION=2.14.1 \
+    -DCPACK_PACKAGE_VERSION=2.18.5 \
     -DCPACK_PACKAGE_CONTACT='Intel Graphics Compiler Team <graphics@intel.com>' \
     -DCPACK_PACKAGE_DESCRIPTION_SUMMARY='Intel Graphics Compiler for OpenCL' \
     -DCPACK_DEBIAN_PACKAGE_MAINTAINER='Intel Corporation' \
@@ -156,6 +156,8 @@ run_with_log "cmake .. \
 run_with_log "ninja -j$(nproc)" "Не удалось выполнить сборку IGC"
 
 # Создание deb-пакетов
+touch "$WORK_DIR/igc/build/postrm"
 run_with_log "cpack -G DEB" "Не удалось создать deb-пакеты"
 
 log "Сборка завершена успешно. Пакеты intel-igc-core.deb, intel-igc-opencl.deb, intel-igc-dev.deb созданы в $WORK_DIR/igc/build"
+
