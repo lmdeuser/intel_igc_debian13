@@ -160,4 +160,3 @@ touch "$WORK_DIR/igc/build/postrm"
 run_with_log "cpack -G DEB" "Не удалось создать deb-пакеты"
 
 log "Сборка завершена успешно. Пакеты intel-igc-core.deb, intel-igc-opencl.deb, intel-igc-dev.deb созданы в $WORK_DIR/igc/build"
-
